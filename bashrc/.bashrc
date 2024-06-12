@@ -7,7 +7,7 @@
 
 alias grep='grep --color=auto'
 PS1='[\u@\h \W]\$ '
-
+# alias clear='clear;neofetch'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
@@ -22,3 +22,4 @@ export ANDROID_HOME=$HOME/Android/Sdk && export PATH=$PATH:$ANDROID_HOME/emulato
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 export JAVA_HOME=/usr/lib/jvm/java-17-microsoft-openjdk/
+eval "$(starship init bash)"

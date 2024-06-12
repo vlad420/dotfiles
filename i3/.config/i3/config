@@ -11,23 +11,25 @@ set $preferredBrowser /usr/bin/google-chrome-stable
 set $preferredFileManager /usr/bin/nautilus
 set $preferredIDE /usr/bin/cursor.AppImage
 set $androidStudio /opt/android-studio/bin/studio.sh
+set $obsidian /opt/Obsidian.AppImage
+
 ###########################################
 ### Commonly Used Application Keybinds: ###
 ###########################################
 
-bindsym $alt+b exec $preferredBrowser;focus
-bindsym $alt+f exec $preferredFileManager;focus
-bindsym $alt+c exec $preferredIDE;focus
-bindsym $alt+a exec $androidStudio;focus
+bindsym $alt+b exec --no-startup-id $preferredBrowser;focus
+bindsym $alt+f exec --no-startup-id $preferredFileManager;focus
+bindsym $alt+c exec --no-startup-id $preferredIDE;focus
+bindsym $alt+a exec --no-startup-id $androidStudio;focus
+bindsym $alt+o exec --no-startup-id $obsidian;focus
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Meslo LGM Nerd Font 12
+font pango:Meslo LGM Nerd Font 9
 
 #autostart
-exec_always xrandr --output DP-0  --mode 1920x1080 --rate 240.00
-exec_always xrandr --output DP-2  --mode 1920x1080 --rate 360.01
-exec_always redshift -P -O 4500
+exec_always --no-startup-id ~/.screenlayout/config_monitors.sh
+exec_always --no-startup-id redshift -P -O 4500
 exec_always --no-startup-id picom
 exec_always --no-startup-id ~/.config/polybar/launch_polybar.sh
 exec_always --no-startup-id feh --bg-scale ~/.config/backgrounds/nice-blue-background.png
@@ -59,14 +61,16 @@ floating_modifier $super
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $super+Return exec i3-sensible-terminal
+bindsym $super+Return exec --no-startup-id i3-sensible-terminal
 
 # kill focused window
-bindsym $super+Shift+q kill
+bindsym $super+q kill
+bindsym $super+Shift+s exec shutdown -h now
+bindsym $alt+Shift+r exec sudo reboot -h now
 
 # start dmenu (a program launcher)
 # bindsym $super+d exec --no-startup-id dmenu_run
-bindsym $super+d exec rofi -show drun
+bindsym $super+d exec --no-startup-id rofi -show drun
 
 # change focus
 bindsym $super+h focus left
@@ -93,7 +97,7 @@ bindsym $super+Shift+Up move up
 bindsym $super+Shift+Right move right
 
 # split in horizontal orientation
-# bindsym $super+h split h
+# bindsym $super+Shift+h split h
 
 # split in vertical orientation
 bindsym $super+v split v
@@ -184,7 +188,7 @@ mode "resize" {
         # back to normal: Enter or Escape or $super+r
         bindsym Return mode "default"
         bindsym Escape mode "default"
-        bindsym $super+r mode "default"
+        # bindsym $super+r mode "default"
 }
 
 bindsym $super+r mode "resize"
