@@ -9,7 +9,7 @@ set $alt Mod1
 
 set $preferredBrowser /usr/bin/google-chrome-stable
 set $preferredFileManager /usr/bin/nautilus
-set $preferredIDE /usr/bin/cursor.AppImage
+set $preferredIDE cursor
 set $androidStudio /opt/android-studio/bin/studio.sh
 set $obsidian /opt/Obsidian.AppImage
 

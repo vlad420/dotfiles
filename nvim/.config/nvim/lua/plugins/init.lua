@@ -4,4 +4,5 @@ return {
   require "plugins.mason",
   require "plugins.treesitter",
   require "plugins.autotag",
+  { "github/copilot.vim", lazy = false },
 }
