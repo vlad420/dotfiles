@@ -12,6 +12,7 @@ set $preferredFileManager /usr/bin/nautilus
 set $preferredIDE cursor
 set $androidStudio /opt/android-studio/bin/studio.sh
 set $obsidian /opt/Obsidian.AppImage
+set $audioControl pavucontrol
 
 ###########################################
 ### Commonly Used Application Keybinds: ###
@@ -22,6 +23,7 @@ bindsym $alt+f exec --no-startup-id $preferredFileManager;focus
 bindsym $alt+c exec --no-startup-id $preferredIDE;focus
 bindsym $alt+a exec --no-startup-id $androidStudio;focus
 bindsym $alt+o exec --no-startup-id $obsidian;focus
+bindsym $alt+p exec --no-startup-id $audioControl;focus
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
