@@ -9,10 +9,8 @@ set $alt Mod1
 
 set $preferredBrowser /usr/bin/google-chrome-stable
 set $preferredFileManager /usr/bin/nautilus
-set $preferredIDE cursor
 set $androidStudio /opt/android-studio/bin/studio.sh
 set $obsidian /opt/Obsidian.AppImage
-set $audioControl pavucontrol
 
 ###########################################
 ### Commonly Used Application Keybinds: ###
@@ -20,10 +18,15 @@ set $audioControl pavucontrol
 
 bindsym $alt+b exec --no-startup-id $preferredBrowser;focus
 bindsym $alt+f exec --no-startup-id $preferredFileManager;focus
-bindsym $alt+c exec --no-startup-id $preferredIDE;focus
+bindsym $alt+c exec --no-startup-id cursor;focus
 bindsym $alt+a exec --no-startup-id $androidStudio;focus
 bindsym $alt+o exec --no-startup-id $obsidian;focus
-bindsym $alt+p exec --no-startup-id $audioControl;focus
+bindsym $alt+p exec --no-startup-id pavucontrol;focus
+bindsym $alt+g exec --no-startup-id github-desktop;focus
+# Captură de ecran completă
+bindsym Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
+# Captură de ecran a unei selecții
+bindsym $alt+s exec --no-startup-id maim -s | xclip -selection clipboard -t image/png
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.

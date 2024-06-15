@@ -70,23 +70,36 @@ enable_pacman_colors() {
 }
 
 install_packages_with_yay() {
+    local packages=("$@")
     if [ -z "$(command -v yay)" ]; then
         echo -e "${RED}Yay nu este instalat. Instalați yay mai întâi.${NC}"
         return 1
     fi
 
-    echo "Instalarea pachetelor: ${PACKAGES[*]}"
-    sudo yay -S --needed --noconfirm --answerclean All --removemake "${PACKAGES[@]}"
+    echo "Instalarea pachetelor: ${packages[*]}"
+    sudo yay -S --needed --noconfirm --answerclean All --removemake "${packages[@]}"
     echo -e "${GREEN}Pachetele au fost instalate cu succes și fișierele de construire au fost șterse.${NC}"
 }
 
-run(){
-    enable_pacman_colors
-    install_yay
-    install_packages_with_yay
-    stow_directories
-    copy_dark_gtk_settings
+fix_asus_aura() {
+    local packages=("asusctl" "supergfxctl")
+    echo -e "${GREEN}Instalarea pachetelor necesare pentru ASUS Aura.${NC}"
+    install_packages_with_yay "${packages[@]}"
+    
+    echo -e "${GREEN}Activarea și pornirea serviciului supergfxd.${NC}"
+    sudo systemctl enable supergfxd
+    sudo systemctl start supergfxd
+
+    echo -e "${GREEN}Setarea modului LED pentru ASUS Aura.${NC}"
+    sudo asusctl led-mode -n
+    sudo asusctl led-mode -n
+    sudo asusctl led-mode -n
 }
 
-run
 
+copy_dark_gtk_settings
+enable_pacman_colors
+install_yay
+fix_asus_aura
+install_packages_with_yay "${PACKAGES[@]}"
+stow_directories
