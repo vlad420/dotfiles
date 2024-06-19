@@ -20,6 +20,15 @@ install_yay() {
 }
 
 stow_directories() {
+    clone_dotfiles_repo
+    cd ~/dotfiles
+
+    # Verifică dacă stow este instalat, dacă nu, îl instalează
+    if ! command -v stow &> /dev/null; then
+        echo -e "${RED}Stow nu este instalat. Se încearcă instalarea...${NC}"
+        install_packages_with_yay stow
+    fi
+
     # Obține toate directoarele care nu încep cu "."
     local dirs=$(find . -maxdepth 1 -type d ! -name '.*' -exec basename {} \; | tail -n +2)
 
@@ -37,6 +46,11 @@ copy_dark_gtk_settings() {
     local destination_file="settings.ini"
     local gtk3_dir="$HOME/.config/gtk-3.0"
     local gtk4_dir="$HOME/.config/gtk-4.0"
+
+    if [ ! -f "$source_file" ]; then
+        echo -e "${RED}Fișierul $source_file nu există.${NC}"
+        return 1
+    fi
 
     # Verifică dacă folderul gtk-3.0 există și copiază fișierul
     if [ -d "$gtk3_dir" ]; then
@@ -85,17 +99,29 @@ fix_asus_aura() {
     local packages=("asusctl" "supergfxctl")
     echo -e "${GREEN}Instalarea pachetelor necesare pentru ASUS Aura.${NC}"
     install_packages_with_yay "${packages[@]}"
-    
+
     echo -e "${GREEN}Activarea și pornirea serviciului supergfxd.${NC}"
     sudo systemctl enable supergfxd
     sudo systemctl start supergfxd
 
     echo -e "${GREEN}Setarea modului LED pentru ASUS Aura.${NC}"
-    sudo asusctl led-mode -n
-    sudo asusctl led-mode -n
-    sudo asusctl led-mode -n
+    asusctl led-mode -n
+    asusctl led-mode -n
+    asusctl led-mode -n
+    asusctl led-mode -n
 }
 
+clone_dotfiles_repo() {
+    local repo_url="https://github.com/vlad420/dotfiles.git"
+    local destination_dir="$HOME/dotfiles"
+
+    if [ -d "$destination_dir" ]; then
+        echo -e "${RED}Folderul $destination_dir deja există. Ștergeți-l manual dacă doriți să re-clonați repo-ul.${NC}"
+    else
+        git clone "$repo_url" "$destination_dir"
+        echo -e "${GREEN}Repo-ul a fost clonat cu succes în $destination_dir.${NC}"
+    fi
+}
 
 copy_dark_gtk_settings
 enable_pacman_colors
