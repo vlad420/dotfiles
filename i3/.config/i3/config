@@ -11,7 +11,7 @@ set $preferredBrowser /usr/bin/google-chrome-stable
 set $preferredFileManager /usr/bin/nautilus
 set $androidStudio /opt/android-studio/bin/studio.sh
 set $obsidian /opt/Obsidian.AppImage
-
+set $insomnia /opt/insomnia/insomnia
 ###########################################
 ### Commonly Used Application Keybinds: ###
 ###########################################
@@ -23,6 +23,7 @@ bindsym $alt+a exec --no-startup-id $androidStudio;focus
 bindsym $alt+o exec --no-startup-id $obsidian;focus
 bindsym $alt+p exec --no-startup-id pavucontrol;focus
 bindsym $alt+g exec --no-startup-id github-desktop;focus
+bindsym $alt+i exec --no-startup-id $insomnia;focus
 # Captură de ecran completă
 bindsym Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
 # Captură de ecran a unei selecții
@@ -40,6 +41,7 @@ exec_always --no-startup-id ~/.config/polybar/launch_polybar.sh
 exec_always --no-startup-id feh --bg-scale ~/.config/backgrounds/nice-blue-background.png
 exec_always --no-startup-id numlockx on
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+exec --no-startup-id xinput --set-prop 11 "libinput Accel Speed" -0.7
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
